@@ -70,6 +70,9 @@ const useStyles = makeStyles(theme => {
       },
     },
     chartsContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
     },
   };
 });
@@ -92,24 +95,25 @@ export default function App() {
         </aside>
         <main className={classes.contentContainer}>
           {(location.hash === '' || location.hash === '#stats') && 
-          <Box className={classes.statsContainer}>
-            <RebaseCooldownStat />
-            <PriceStat />
-            <SupplyStat />
-            <RebaseStat />
-            <PriceTargetStat />
-            <MarketCapStat />
-            <PriceChart />
-            <SupplyChart />
-            <MarketCapChart />
-          </Box> 
+            <>
+            <Box className={classes.statsContainer}>
+              <RebaseCooldownStat />
+              <PriceStat />
+              <SupplyStat />
+              <RebaseStat />
+              <PriceTargetStat />
+              <MarketCapStat />
+            </Box>
+            <Box className={classes.chartsContainer}>
+              <PriceChart />
+              <SupplyChart />
+              <MarketCapChart />
+            </Box>
+            </> 
           }
 
           {/* {location.hash === '#volume' && 
           <Box className={classes.chartsContainer}>
-            <PriceChart />
-            <SupplyChart />
-            <MarketCapChart />
           </Box>
           } */}
 
