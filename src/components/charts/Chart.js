@@ -21,7 +21,7 @@ const noop = x => x;
 
 const useStyles = makeStyles(theme => ({
   chartContainer: {
-    width: '100%',
+    width: 600,
     height: 400,
   },
   title: {},
