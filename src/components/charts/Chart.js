@@ -21,8 +21,20 @@ const noop = x => x;
 
 const useStyles = makeStyles(theme => ({
   chartContainer: {
-    width: '100%',
+    width: 1000,
     height: 400,
+    [theme.breakpoints.down('xs')]: {
+      width: 320
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 600
+    },
+    [theme.breakpoints.up('md')]: {
+      width: 800
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: 1000
+    },
   },
   title: {},
 }));
