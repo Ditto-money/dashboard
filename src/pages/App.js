@@ -22,6 +22,7 @@ import SupplyChart from 'components/charts/SupplyChart';
 import MarketCapChart from 'components/charts/MarketCapChart';
 
 import Rebases from 'components/Rebases';
+import Tracker from 'components/Tracker';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -119,6 +120,9 @@ export default function App() {
 
           {location.hash === '#rebase' &&
             <Rebases />
+          }
+          {location.hash === '#tracker' &&
+            <Tracker />
           }
           <ConnectWallet />
         </main>
