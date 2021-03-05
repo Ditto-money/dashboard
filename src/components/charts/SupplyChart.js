@@ -5,6 +5,6 @@ import { useStats } from 'contexts/stats';
 export default () => {
   const { supplyChartData: data } = useStats();
   return (
-    <Chart {...{ data }} yAxisLabelFormatter={y => `$${y}`} title={'SUPPLY'} />
+    <Chart {...{ data }} title={'SUPPLY'} />
   );
 };
