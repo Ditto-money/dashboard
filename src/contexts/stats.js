@@ -10,7 +10,7 @@ const StatsContext = React.createContext(null);
 
 export function StatsProvider({ children }) {
   const [activeDuration, setActiveDuration] = React.useState(
-    DURATIONS_ARRAY[0][0]
+    DURATIONS_ARRAY[1][0]
   );
   const [activeType, setActiveType] = React.useState(TYPES_ARRAY[0][0]);
   const [supply, setSupply] = React.useState(Big(0));

@@ -21,8 +21,20 @@ const noop = x => x;
 
 const useStyles = makeStyles(theme => ({
   chartContainer: {
-    width: '100%',
+    width: 1000,
     height: 400,
+    [theme.breakpoints.down('xs')]: {
+      width: 320,
+    },
+    [theme.breakpoints.up('sm')]: {
+      width: 600,
+    },
+    [theme.breakpoints.up('md')]: {
+      width: 800,
+    },
+    [theme.breakpoints.up('lg')]: {
+      width: 1000,
+    },
   },
   title: {},
 }));
@@ -32,7 +44,9 @@ export default ({ data, title, yAxisLabelFormatter = noop }) => {
   const { activeType } = useStats();
 
   const yAxisTickFormatter = val => {
-    return activeType === '%'
+    return Infinity === Math.abs(val)
+      ? '-'
+      : activeType === '%'
       ? toFixed(val, 1, 2) + '%'
       : yAxisLabelFormatter(toFixed(val, 1, 2));
   };
