@@ -17,6 +17,7 @@ import { WalletProvider } from 'contexts/wallet';
 import { NotificationsProvider } from 'contexts/notifications';
 import { StatsProvider } from 'contexts/stats';
 import Notification from 'components/Notification';
+import { TrackerProvider  } from 'contexts/tracker';
 import * as serviceWorker from 'serviceWorker';
 
 import App from 'pages/App';
@@ -75,7 +76,9 @@ function Shell() {
           <NotificationsProvider>
             <WalletProvider>
               <StatsProvider>
-                <App />
+                <TrackerProvider>
+                  <App />
+                </TrackerProvider>
               </StatsProvider>
             </WalletProvider>
           </NotificationsProvider>

@@ -36,6 +36,11 @@ export default function Navigation(props) {
                     Rebase history
                 </Button>
             </li>
+            <li className={classes.item}>
+                <Button color="secondary" href="#tracker">
+                    Tracker
+                </Button>
+            </li>
         </ul>
     )
     return (
