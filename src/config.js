@@ -10,7 +10,8 @@ export const IS_TESTNET = !!~window.location.href.indexOf('testnet')
 export const IS_DEV = !!~window.location.href.indexOf('local')
 
 export const API_URL =
-  process.env.REACT_APP_API_URL || (IS_TESTNET ? 'https://ditto.money/api-testnet' : IS_DEV ? 'http://localhost:5001' : 'https://website-backend.serv.ditto.money')
+  process.env.REACT_APP_API_URL ||
+  (IS_TESTNET ? 'https://ditto.money/api-testnet' : IS_DEV ? 'http://localhost:5001' : 'https://website-backend.serv.ditto.money')
 
 export const CONTRACTS = IS_TESTNET
   ? {
