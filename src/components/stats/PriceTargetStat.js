@@ -1,7 +1,7 @@
 import React from 'react'
 import Paper from './Paper'
 
-export default function() {
+export default function () {
   return (
     <Paper variant="outlined" elevation={0}>
       <div>PRICE TARGET</div>

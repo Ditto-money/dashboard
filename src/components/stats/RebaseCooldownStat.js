@@ -4,7 +4,7 @@ import Paper from './Paper'
 import { Big, isZero } from 'utils/big-number'
 import { useStats } from 'contexts/stats'
 
-export default function() {
+export default function () {
   const [duration, setDuration] = React.useState('0d:0h:0m:0s')
   const { cooldownExpiryTimestamp, cooldownExpired } = useStats()
 

@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => {
   }
 })
 
-export default function() {
+export default function () {
   const classes = useStyles()
   const { activeDuration, activeType, setActiveDuration, setActiveType } = useStats()
 

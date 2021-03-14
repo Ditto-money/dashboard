@@ -39,7 +39,7 @@
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build",
     "prettier": "./node_modules/prettier/bin-prettier.js --write src",
-    "lint": "./node_modules/eslint/bin/eslint.js --fix 'src/**/*.js'",
+    "lint": "./node_modules/eslint/bin/eslint.js 'src/**/*.js' --max-warnings=0",
     "prepare": "husky install"
   },
   "eslintConfig": {

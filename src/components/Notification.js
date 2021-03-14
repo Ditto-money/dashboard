@@ -51,7 +51,7 @@ const TYPES = new Map([
   ['success', [SuccessIcon, SuccessContent]],
 ])
 
-export default function({ id, notification }) {
+export default function ({ id, notification }) {
   const classes = useStyles()
   const { closeSnackbar } = useSnackbar()
   const clearNotification = () => closeSnackbar(id)

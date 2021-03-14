@@ -3,7 +3,7 @@ import Paper from './Paper'
 import { toFixed } from 'utils/big-number'
 import { useStats } from 'contexts/stats'
 
-export default function() {
+export default function () {
   const { mktCap } = useStats()
 
   return (

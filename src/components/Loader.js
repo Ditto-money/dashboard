@@ -1,7 +1,7 @@
 import React from 'react'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
-export default function({ size = 40, opacity = 1, fullscreen, color = 'inherit' }) {
+export default function ({ size = 40, opacity = 1, fullscreen, color = 'inherit' }) {
   return (
     <div
       style={{

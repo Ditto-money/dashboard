@@ -22,7 +22,7 @@ const useStyles = makeStyles(() => ({
   },
 }))
 
-;(async() => {
+;(async () => {
   document.documentElement.classList.remove('boot-loader')
   document.getElementById('loader-container').remove()
   const root = document.createElement('div')

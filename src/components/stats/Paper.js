@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => {
   }
 })
 
-export default function({ children }) {
+export default function ({ children }) {
   const classes = useStyles()
 
   return <Paper className={classes.container}>{children}</Paper>

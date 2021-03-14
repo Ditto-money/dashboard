@@ -28,7 +28,7 @@ export function WalletProvider({ children }) {
   const startConnecting = () => setIsConnecting(true)
   const stopConnecting = () => setIsConnecting(false)
 
-  const setProvider = React.useCallback(async function(web3Provider) {
+  const setProvider = React.useCallback(async function (web3Provider) {
     web3Provider.on('accountsChanged', () => {
       window.location.reload()
     })
@@ -53,7 +53,7 @@ export function WalletProvider({ children }) {
     }
   }, [])
 
-  const disconnect = async function() {
+  const disconnect = async function () {
     cache(CACHE_WALLET_KEY, null)
     setSigner(null)
     setAddress(null)
@@ -61,7 +61,7 @@ export function WalletProvider({ children }) {
   }
 
   const connectMetamask = React.useCallback(
-    async function() {
+    async function () {
       await window.ethereum.enable()
       cache(CACHE_WALLET_KEY, 'metamask')
       await setProvider(window.ethereum)
@@ -70,7 +70,7 @@ export function WalletProvider({ children }) {
   )
 
   const connectBsc = React.useCallback(
-    async function() {
+    async function () {
       if (!window.BinanceChain) return
       await window.BinanceChain.enable()
       cache(CACHE_WALLET_KEY, 'bsc')
@@ -80,7 +80,7 @@ export function WalletProvider({ children }) {
   )
 
   const connectTrust = React.useCallback(
-    async function() {
+    async function () {
       await window.ethereum.enable()
       if (!window.ethereum.isTrust) return
       cache(CACHE_WALLET_KEY, 'trust')
@@ -90,7 +90,7 @@ export function WalletProvider({ children }) {
   )
 
   const connectToCached = React.useCallback(
-    async function() {
+    async function () {
       if (address) return
 
       const cachedWallet = cache(CACHE_WALLET_KEY)
@@ -107,10 +107,12 @@ export function WalletProvider({ children }) {
   )
 
   React.useEffect(() => {
-    (async() => {
+    const fun = async () => {
       await connectToCached()
       setIsLoaded(true)
-    })()
+    }
+
+    fun()
   }, [connectToCached])
 
   return (

@@ -25,7 +25,7 @@ export default () => {
     let isMounted = true
     const unsubs = [() => (isMounted = false)]
 
-    const load = async() => {
+    const load = async () => {
       const { totalRebases, rebases } = await request.api('/rebases', {
         page: page - 1,
         count: COUNT,

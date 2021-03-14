@@ -66,7 +66,7 @@ export function StatsProvider({ children }) {
     let isMounted = true
     const unsubs = [() => (isMounted = false)]
 
-    const load = async() => {
+    const load = async () => {
       const [price, cooldownExpiryTimestamp] = await Promise.all([oracleContract.getData(), controllerContract.cooldownExpiryTimestamp()])
       if (isMounted) {
         setPrice(Big(price).div(1e18))
@@ -91,7 +91,7 @@ export function StatsProvider({ children }) {
     let isMounted = true
     const unsubs = [() => (isMounted = false)]
 
-    const load = async() => {
+    const load = async () => {
       const [{ totalSupply }, chartData] = await Promise.all([
         request.api('/total-supply'),
         request.api('/'),

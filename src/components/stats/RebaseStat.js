@@ -5,13 +5,13 @@ import { useStats } from 'contexts/stats'
 import { useWallet } from 'contexts/wallet'
 import { useNotifications } from 'contexts/notifications'
 
-export default function() {
+export default function () {
   const [isRebasing, setIsRebasing] = React.useState(false)
   const { cooldownExpired } = useStats()
   const { address, startConnecting, controllerContract } = useWallet()
   const { showTxNotification, showErrorNotification } = useNotifications()
 
-  const connectOrRebase = async() => {
+  const connectOrRebase = async () => {
     if (!address) return startConnecting()
 
     try {
