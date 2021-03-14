@@ -3,8 +3,6 @@ import Chart from './Chart'
 import { useStats } from 'contexts/stats'
 
 export default () => {
-  const { supplyChartData: data } = useStats();
-  return (
-    <Chart {...{ data }} title={'SUPPLY'} />
-  );
-};
+  const { supplyChartData: data } = useStats()
+  return <Chart {...{ data }} title={'SUPPLY'} />
+}
