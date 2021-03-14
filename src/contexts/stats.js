@@ -1,36 +1,30 @@
-import React from 'react';
-import moment from 'moment';
+import React from 'react'
+import moment from 'moment'
 
-import { Big, isZero } from 'utils/big-number';
-import { useWallet } from 'contexts/wallet';
-import * as request from 'utils/request';
-import { TYPES_ARRAY, DURATIONS_ARRAY } from 'config';
+import { Big, isZero } from 'utils/big-number'
+import { useWallet } from 'contexts/wallet'
+import * as request from 'utils/request'
+import { TYPES_ARRAY, DURATIONS_ARRAY } from 'config'
 
-const StatsContext = React.createContext(null);
+const StatsContext = React.createContext(null)
 
 export function StatsProvider({ children }) {
-  const [activeDuration, setActiveDuration] = React.useState(
-    DURATIONS_ARRAY[1][0]
-  );
-  const [activeType, setActiveType] = React.useState(TYPES_ARRAY[0][0]);
-  const [supply, setSupply] = React.useState(Big(0));
-  const [price, setPrice] = React.useState(Big(0));
-  const [cooldownExpiryTimestamp, setCooldownExpiryTimestamp] = React.useState(
-    Big(0)
-  );
-  const [chartData, setChartData] = React.useState({});
+  const [activeDuration, setActiveDuration] = React.useState(DURATIONS_ARRAY[1][0])
+  const [activeType, setActiveType] = React.useState(TYPES_ARRAY[0][0])
+  const [supply, setSupply] = React.useState(Big(0))
+  const [price, setPrice] = React.useState(Big(0))
+  const [cooldownExpiryTimestamp, setCooldownExpiryTimestamp] = React.useState(Big(0))
+  const [chartData, setChartData] = React.useState({})
 
-  const { controllerContract, oracleContract } = useWallet();
+  const { controllerContract, oracleContract } = useWallet()
 
   const mktCap = React.useMemo(() => {
-    return supply.mul(price);
-  }, [supply, price]);
+    return supply.mul(price)
+  }, [supply, price])
 
   const cooldownExpired = React.useMemo(() => {
-    return isZero(cooldownExpiryTimestamp)
-      ? false
-      : moment.unix(cooldownExpiryTimestamp).isBefore(moment.utc());
-  }, [cooldownExpiryTimestamp]);
+    return isZero(cooldownExpiryTimestamp) ? false : moment.unix(cooldownExpiryTimestamp).isBefore(moment.utc())
+  }, [cooldownExpiryTimestamp])
 
   const priceChartData = React.useMemo(
     () =>
@@ -40,8 +34,8 @@ export function StatsProvider({ children }) {
         activeType,
         map: ({ x, p }) => ({ x, p }),
       }),
-    [chartData, activeDuration, activeType]
-  );
+    [chartData, activeDuration, activeType],
+  )
 
   const supplyChartData = React.useMemo(
     () =>
@@ -51,8 +45,8 @@ export function StatsProvider({ children }) {
         activeType,
         map: ({ x, s: p }) => ({ x, p }),
       }),
-    [chartData, activeDuration, activeType]
-  );
+    [chartData, activeDuration, activeType],
+  )
 
   const mktCapChartData = React.useMemo(
     () =>
@@ -61,70 +55,67 @@ export function StatsProvider({ children }) {
         activeDuration,
         activeType,
         map: ({ x, s, p }) => {
-          const y = s.map((a, i) => parseFloat(a) + parseFloat(p[i]));
-          return { x, p: y };
+          const y = s.map((a, i) => parseFloat(a) + parseFloat(p[i]))
+          return { x, p: y }
         },
       }),
-    [chartData, activeDuration, activeType]
-  );
+    [chartData, activeDuration, activeType],
+  )
 
   React.useEffect(() => {
-    let isMounted = true;
-    const unsubs = [() => (isMounted = false)];
+    let isMounted = true
+    const unsubs = [() => (isMounted = false)]
 
-    const load = async () => {
-      const [price, cooldownExpiryTimestamp] = await Promise.all([
-        oracleContract.getData(),
-        controllerContract.cooldownExpiryTimestamp(),
-      ]);
+    const load = async() => {
+      const [price, cooldownExpiryTimestamp] = await Promise.all([oracleContract.getData(), controllerContract.cooldownExpiryTimestamp()])
       if (isMounted) {
-        setPrice(Big(price).div(1e18));
-        setCooldownExpiryTimestamp(Big(cooldownExpiryTimestamp));
+        setPrice(Big(price).div(1e18))
+        setCooldownExpiryTimestamp(Big(cooldownExpiryTimestamp))
       }
-    };
+    }
 
     const subscribe = () => {
-      const rebasedEvent = controllerContract.filters.LogRebase();
-      controllerContract.on(rebasedEvent, load);
-      unsubs.push(() => controllerContract.off(rebasedEvent, load));
-    };
+      const rebasedEvent = controllerContract.filters.LogRebase()
+      controllerContract.on(rebasedEvent, load)
+      unsubs.push(() => controllerContract.off(rebasedEvent, load))
+    }
 
-    load();
-    subscribe();
+    load()
+    subscribe()
     return () => {
-      unsubs.forEach(unsub => unsub());
-    };
-  }, [oracleContract, controllerContract]);
+      unsubs.forEach((unsub) => unsub())
+    }
+  }, [oracleContract, controllerContract])
 
   React.useEffect(() => {
-    let isMounted = true;
-    const unsubs = [() => (isMounted = false)];
+    let isMounted = true
+    const unsubs = [() => (isMounted = false)]
 
-    const load = async () => {
+    const load = async() => {
       const [{ totalSupply }, chartData] = await Promise.all([
         request.api('/total-supply'),
         request.api('/'),
         // Promise.resolve({ totalSupply: '100' }),
         // import('api-sample-data.json'),
-      ]);
+      ])
       if (isMounted) {
-        setSupply(Big(totalSupply).div(Big(1e9)));
-        setChartData(chartData);
+        setSupply(Big(totalSupply).div(Big(1e9)))
+        setChartData(chartData)
       }
-    };
+    }
 
     const subscribe = () => {
-      const rebasedEvent = controllerContract.filters.LogRebase();
-      controllerContract.on(rebasedEvent, load);
-      unsubs.push(() => controllerContract.off(rebasedEvent, load));
-    };
+      const rebasedEvent = controllerContract.filters.LogRebase()
+      controllerContract.on(rebasedEvent, load)
+      unsubs.push(() => controllerContract.off(rebasedEvent, load))
+    }
 
-    load();
-    subscribe();
+    load()
+    subscribe()
     return () => {
-      unsubs.forEach(unsub => unsub());
-    };
-  }, [controllerContract]);
+      unsubs.forEach((unsub) => unsub())
+    }
+  }, [controllerContract])
 
   return (
     <StatsContext.Provider
@@ -146,13 +137,13 @@ export function StatsProvider({ children }) {
     >
       {children}
     </StatsContext.Provider>
-  );
+  )
 }
 
 export function useStats() {
-  const context = React.useContext(StatsContext);
+  const context = React.useContext(StatsContext)
   if (!context) {
-    throw new Error('Missing stats context');
+    throw new Error('Missing stats context')
   }
   const {
     supply,
@@ -168,7 +159,7 @@ export function useStats() {
     setActiveDuration,
     activeType,
     setActiveType,
-  } = context;
+  } = context
   return {
     supply,
     price,
@@ -183,28 +174,28 @@ export function useStats() {
     setActiveDuration,
     activeType,
     setActiveType,
-  };
+  }
 }
 
 const getChartData = ({ chartData, activeDuration, activeType, map }) => {
-  const data = chartData[activeDuration];
-  if (!data) return;
+  const data = chartData[activeDuration]
+  if (!data) return
 
-  const { x, p } = map(data);
-  let y;
+  const { x, p } = map(data)
+  let y
   if (activeType === '%') {
-    y = [0];
+    y = [0]
     for (let i = 1; i < p.length; i++) {
-      const a = parseFloat(p[i]);
-      const b = parseFloat(p[i - 1]);
-      y.push(!a ? 0 : (1e2 * (a - b)) / a);
+      const a = parseFloat(p[i])
+      const b = parseFloat(p[i - 1])
+      y.push(!a ? 0 : (1e2 * (a - b)) / a)
     }
   } else {
-    y = p.map(py => parseFloat(py));
+    y = p.map((py) => parseFloat(py))
   }
   return {
     x,
     y,
     xy: x.map((px, i) => ({ x: px, y: y[i] })),
-  };
-};
+  }
+}

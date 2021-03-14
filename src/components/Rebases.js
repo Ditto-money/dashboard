@@ -1,54 +1,46 @@
-import React from 'react';
-import moment from 'moment';
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Link,
-} from '@material-ui/core';
-import { Pagination } from '@material-ui/lab';
-import { toFixed } from 'utils/big-number';
-import * as request from 'utils/request';
-import { IS_TESTNET } from 'config';
+import React from 'react'
+import moment from 'moment'
+import { makeStyles } from '@material-ui/core/styles'
+import { Box, Table, TableBody, TableCell, TableHead, TableRow, Link } from '@material-ui/core'
+import { Pagination } from '@material-ui/lab'
+import { toFixed } from 'utils/big-number'
+import * as request from 'utils/request'
+import { IS_TESTNET } from 'config'
 
-const COUNT = 5;
+const COUNT = 5
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   title: {},
-}));
+}))
 
 export default () => {
-  const classes = useStyles();
-  const [rebases, setRebases] = React.useState([]);
-  const [totalCount, setTotalCount] = React.useState(0);
-  const [page, setPage] = React.useState(1);
+  const classes = useStyles()
+  const [rebases, setRebases] = React.useState([])
+  const [totalCount, setTotalCount] = React.useState(0)
+  const [page, setPage] = React.useState(1)
 
-  const pages = Math.ceil(totalCount / COUNT);
+  const pages = Math.ceil(totalCount / COUNT)
 
   React.useEffect(() => {
-    let isMounted = true;
-    const unsubs = [() => (isMounted = false)];
+    let isMounted = true
+    const unsubs = [() => (isMounted = false)]
 
-    const load = async () => {
+    const load = async() => {
       const { totalRebases, rebases } = await request.api('/rebases', {
         page: page - 1,
         count: COUNT,
-      });
+      })
       if (isMounted) {
-        setTotalCount(totalRebases);
-        setRebases(rebases);
+        setTotalCount(totalRebases)
+        setRebases(rebases)
       }
-    };
+    }
 
-    load();
+    load()
     return () => {
-      unsubs.forEach(unsub => unsub());
-    };
-  }, [page]);
+      unsubs.forEach((unsub) => unsub())
+    }
+  }, [page])
 
   return (
     <Box mt={6} mb={2}>
@@ -66,26 +58,17 @@ export default () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rebases.map(rebase => (
+            {rebases.map((rebase) => (
               <TableRow key={rebase.timestamp}>
                 <TableCell component="th" scope="row">
-                  {moment
-                    .unix(rebase.timestamp)
-                    .local()
-                    .format('YYYY-MM-DD HH:mm')}
+                  {moment.unix(rebase.timestamp).local().format('YYYY-MM-DD HH:mm')}
                 </TableCell>
-                <TableCell>
-                  {toFixed(rebase.supplyAdjustmentPercent, 1, 2)}%
-                </TableCell>
-                <TableCell>
-                  {toFixed(rebase.supplyBeforeRebase, 1, 2)}
-                </TableCell>
+                <TableCell>{toFixed(rebase.supplyAdjustmentPercent, 1, 2)}%</TableCell>
+                <TableCell>{toFixed(rebase.supplyBeforeRebase, 1, 2)}</TableCell>
                 <TableCell>{toFixed(rebase.supplyAfterRebase, 1, 2)}</TableCell>
                 <TableCell align="right">
                   <Link
-                    href={`https://${
-                      IS_TESTNET ? 'testnet.' : ''
-                    }bscscan.com/block/${rebase.blockNumber}`}
+                    href={`https://${IS_TESTNET ? 'testnet.' : ''}bscscan.com/block/${rebase.blockNumber}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={classes.small}
@@ -100,14 +83,8 @@ export default () => {
       </Box>
 
       <Box mt={2}>
-        <Pagination
-          variant="outlined"
-          shape="rounded"
-          count={pages}
-          page={page}
-          onChange={(event, page) => setPage(page)}
-        />
+        <Pagination variant="outlined" shape="rounded" count={pages} page={page} onChange={(event, page) => setPage(page)} />
       </Box>
     </Box>
-  );
-};
+  )
+}

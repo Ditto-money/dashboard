@@ -1,29 +1,26 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
-import {
-  BrowserRouter as Router,
-  useLocation,
-} from "react-router-dom";
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
+import { BrowserRouter as Router, useLocation } from 'react-router-dom'
 
-import Header from 'components/Header';
-import ConnectWallet from 'components/ConnectWallet';
+import Header from 'components/Header'
+import ConnectWallet from 'components/ConnectWallet'
 import Navigation from 'components/Navigation'
 
-import RebaseCooldownStat from 'components/stats/RebaseCooldownStat';
-import PriceStat from 'components/stats/PriceStat';
-import SupplyStat from 'components/stats/SupplyStat';
-import RebaseStat from 'components/stats/RebaseStat';
-import PriceTargetStat from 'components/stats/PriceTargetStat';
-import MarketCapStat from 'components/stats/MarketCapStat';
+import RebaseCooldownStat from 'components/stats/RebaseCooldownStat'
+import PriceStat from 'components/stats/PriceStat'
+import SupplyStat from 'components/stats/SupplyStat'
+import RebaseStat from 'components/stats/RebaseStat'
+import PriceTargetStat from 'components/stats/PriceTargetStat'
+import MarketCapStat from 'components/stats/MarketCapStat'
 
-import PriceChart from 'components/charts/PriceChart';
-import SupplyChart from 'components/charts/SupplyChart';
-import MarketCapChart from 'components/charts/MarketCapChart';
+import PriceChart from 'components/charts/PriceChart'
+import SupplyChart from 'components/charts/SupplyChart'
+import MarketCapChart from 'components/charts/MarketCapChart'
 
-import Rebases from 'components/Rebases';
+import Rebases from 'components/Rebases'
 
-const useStyles = makeStyles(theme => {
+const useStyles = makeStyles((theme) => {
   return {
     container: {
       display: 'grid',
@@ -34,7 +31,7 @@ const useStyles = makeStyles(theme => {
         'header'
         'content'
         `,
-        gap: '0'
+        gap: '0',
       },
       [theme.breakpoints.up('md')]: {
         gridTemplateColumns: '250px 1fr',
@@ -74,17 +71,17 @@ const useStyles = makeStyles(theme => {
       flexDirection: 'column',
       alignItems: 'center',
     },
-  };
-});
+  }
+})
 
 export default function App() {
-  const classes = useStyles();
-  let location = useLocation();
-  const [drawerOpen, setDrawerOpen] = React.useState(false);
+  const classes = useStyles()
+  const location = useLocation()
+  const [drawerOpen, setDrawerOpen] = React.useState(false)
 
   const handleDrawerToggle = () => {
-    setDrawerOpen(!drawerOpen);
-  };
+    setDrawerOpen(!drawerOpen)
+  }
 
   return (
     <Router>
@@ -94,35 +91,33 @@ export default function App() {
           <Navigation drawer={drawerOpen} setDrawer={handleDrawerToggle} />
         </aside>
         <main className={classes.contentContainer}>
-          {(location.hash === '' || location.hash === '#stats') && 
+          {(location.hash === '' || location.hash === '#stats') && (
             <>
-            <Box className={classes.statsContainer}>
-              <RebaseCooldownStat />
-              <PriceStat />
-              <SupplyStat />
-              <RebaseStat />
-              <PriceTargetStat />
-              <MarketCapStat />
-            </Box>
-            <Box className={classes.chartsContainer}>
-              <PriceChart />
-              <SupplyChart />
-              <MarketCapChart />
-            </Box>
-            </> 
-          }
+              <Box className={classes.statsContainer}>
+                <RebaseCooldownStat />
+                <PriceStat />
+                <SupplyStat />
+                <RebaseStat />
+                <PriceTargetStat />
+                <MarketCapStat />
+              </Box>
+              <Box className={classes.chartsContainer}>
+                <PriceChart />
+                <SupplyChart />
+                <MarketCapChart />
+              </Box>
+            </>
+          )}
 
           {/* {location.hash === '#volume' && 
           <Box className={classes.chartsContainer}>
           </Box>
           } */}
 
-          {location.hash === '#rebase' &&
-            <Rebases />
-          }
+          {location.hash === '#rebase' && <Rebases />}
           <ConnectWallet />
         </main>
       </Box>
     </Router>
-  );
+  )
 }

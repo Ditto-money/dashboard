@@ -1,25 +1,17 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
-import {
-  ResponsiveContainer,
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-} from 'recharts';
-import ChartsController from './ChartsController';
-import ChartsTooltip from './ChartsTooltip';
-import Loader from 'components/Loader';
-import { SECONDARY_COLOR } from 'config';
-import { toFixed } from 'utils/big-number';
-import { useStats } from 'contexts/stats';
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
+import ChartsController from './ChartsController'
+import ChartsTooltip from './ChartsTooltip'
+import Loader from 'components/Loader'
+import { SECONDARY_COLOR } from 'config'
+import { toFixed } from 'utils/big-number'
+import { useStats } from 'contexts/stats'
 
-const noop = x => x;
+const noop = (x) => x
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   chartContainer: {
     width: 1000,
     height: 400,
@@ -37,19 +29,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
   title: {},
-}));
+}))
 
 export default ({ data, title, yAxisLabelFormatter = noop }) => {
-  const classes = useStyles();
-  const { activeType } = useStats();
+  const classes = useStyles()
+  const { activeType } = useStats()
 
-  const yAxisTickFormatter = val => {
-    return Infinity === Math.abs(val)
-      ? '-'
-      : activeType === '%'
-      ? toFixed(val, 1, 2) + '%'
-      : yAxisLabelFormatter(toFixed(val, 1, 2));
-  };
+  const yAxisTickFormatter = (val) => {
+    return Infinity === Math.abs(val) ? '-' : activeType === '%' ? toFixed(val, 1, 2) + '%' : yAxisLabelFormatter(toFixed(val, 1, 2))
+  }
 
   return (
     <Box mt={6} mb={2}>
@@ -75,24 +63,13 @@ export default ({ data, title, yAxisLabelFormatter = noop }) => {
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="x" />
-              <YAxis
-                tickFormatter={yAxisTickFormatter}
-                domain={['dataMin', 'dataMax']}
-              />
-              <Tooltip
-                content={<ChartsTooltip {...{ yAxisTickFormatter }} />}
-              />
-              <Area
-                type="monotone"
-                stackOffset="expand"
-                dataKey="y"
-                stroke={SECONDARY_COLOR}
-                fill={SECONDARY_COLOR}
-              />
+              <YAxis tickFormatter={yAxisTickFormatter} domain={['dataMin', 'dataMax']} />
+              <Tooltip content={<ChartsTooltip {...{ yAxisTickFormatter }} />} />
+              <Area type="monotone" stackOffset="expand" dataKey="y" stroke={SECONDARY_COLOR} fill={SECONDARY_COLOR} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
       )}
     </Box>
-  );
-};
+  )
+}

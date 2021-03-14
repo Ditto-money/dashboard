@@ -1,12 +1,7 @@
-import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import React from 'react'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-export default function({
-  size = 40,
-  opacity = 1,
-  fullscreen,
-  color = 'inherit',
-}) {
+export default function({ size = 40, opacity = 1, fullscreen, color = 'inherit' }) {
   return (
     <div
       style={{
@@ -28,14 +23,8 @@ export default function({
       }}
     >
       <div style={{ position: 'relative' }}>
-        <CircularProgress
-          style={{ position: 'relative' }}
-          left={0}
-          top={0}
-          {...{ size, color }}
-          status="loading"
-        />
+        <CircularProgress style={{ position: 'relative' }} left={0} top={0} {...{ size, color }} status="loading" />
       </div>
     </div>
-  );
+  )
 }

@@ -1,27 +1,27 @@
-import React from 'react';
-import clsx from 'clsx';
-import { makeStyles } from '@material-ui/core/styles';
-import { Box } from '@material-ui/core';
-import Paper from 'components/Paper';
+import React from 'react'
+import clsx from 'clsx'
+import { makeStyles } from '@material-ui/core/styles'
+import { Box } from '@material-ui/core'
+import Paper from 'components/Paper'
 
-import { BORDER_RADIUS, TYPES_ARRAY, DURATIONS_ARRAY } from 'config';
-import { useStats } from 'contexts/stats';
+import { BORDER_RADIUS, TYPES_ARRAY, DURATIONS_ARRAY } from 'config'
+import { useStats } from 'contexts/stats'
 
-const useStyles = makeStyles(theme => {
-  const color = theme.palette.borderColor;
+const useStyles = makeStyles((theme) => {
+  const color = theme.palette.borderColor
   return {
     buttonsContainer: {
       display: 'flex',
       [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
       },
     },
     typesButtonsContainer: {
       marginLeft: '16px',
       [theme.breakpoints.down('sm')]: {
         marginLeft: 0,
-        marginTop: '5px'
+        marginTop: '5px',
       },
     },
     container: {
@@ -30,13 +30,13 @@ const useStyles = makeStyles(theme => {
       borderRadius: BORDER_RADIUS,
     },
     item: {
-      fontSize: 13,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: 80,
-      height: 30,
-      cursor: 'pointer',
+      'fontSize': 13,
+      'display': 'flex',
+      'alignItems': 'center',
+      'justifyContent': 'center',
+      'width': 80,
+      'height': 30,
+      'cursor': 'pointer',
       '&:first-child': {
         borderTopLeftRadius: BORDER_RADIUS,
         borderBottomLeftRadius: BORDER_RADIUS,
@@ -52,17 +52,12 @@ const useStyles = makeStyles(theme => {
     activeItem: {
       background: color,
     },
-  };
-});
+  }
+})
 
 export default function() {
-  const classes = useStyles();
-  const {
-    activeDuration,
-    activeType,
-    setActiveDuration,
-    setActiveType,
-  } = useStats();
+  const classes = useStyles()
+  const { activeDuration, activeType, setActiveDuration, setActiveType } = useStats()
 
   return (
     <div className={classes.buttonsContainer}>
@@ -97,5 +92,5 @@ export default function() {
         </Paper>
       </Box>
     </div>
-  );
+  )
 }

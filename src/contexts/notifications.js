@@ -1,20 +1,20 @@
-import React from 'react';
-import { useSnackbar } from 'notistack';
+import React from 'react'
+import { useSnackbar } from 'notistack'
 
-const NotificationsContext = React.createContext(null);
+const NotificationsContext = React.createContext(null)
 
 export function NotificationsProvider({ children }) {
-  const { enqueueSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar()
 
   const showTxNotification = (description, hash) =>
     enqueueSnackbar(
       { type: 'tx', description, hash },
       {
         persist: true,
-      }
-    );
+      },
+    )
 
-  const showErrorNotification = msg =>
+  const showErrorNotification = (msg) =>
     enqueueSnackbar(
       {
         type: 'error',
@@ -22,8 +22,8 @@ export function NotificationsProvider({ children }) {
       },
       {
         persist: true,
-      }
-    );
+      },
+    )
 
   const showSuccessNotification = (title, message) =>
     enqueueSnackbar(
@@ -34,8 +34,8 @@ export function NotificationsProvider({ children }) {
       },
       {
         persist: true,
-      }
-    );
+      },
+    )
 
   return (
     <NotificationsContext.Provider
@@ -47,22 +47,18 @@ export function NotificationsProvider({ children }) {
     >
       {children}
     </NotificationsContext.Provider>
-  );
+  )
 }
 
 export function useNotifications() {
-  const context = React.useContext(NotificationsContext);
+  const context = React.useContext(NotificationsContext)
   if (!context) {
-    throw new Error('Missing notifications context');
+    throw new Error('Missing notifications context')
   }
-  const {
-    showTxNotification,
-    showErrorNotification,
-    showSuccessNotification,
-  } = context;
+  const { showTxNotification, showErrorNotification, showSuccessNotification } = context
   return {
     showTxNotification,
     showErrorNotification,
     showSuccessNotification,
-  };
+  }
 }
