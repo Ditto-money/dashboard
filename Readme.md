@@ -7,9 +7,9 @@ This repo uses Husky for git hooks. It will run a lint / prettier on commit. Ple
 
 <span style="color:yellow;font-size:15px;background:black;">⚠️ Please make sure the code is well documented and you have run lint (npm run lint) before comitting any changes you have made ⚠️</span>
 
-Copy `.env.sample` to `.env` and update accordingly
-Run `make`
-Then visit http://localhost:3001
+- Copy `.env.sample` to `.env` and update accordingly
+- Run `make`
+- Then visit http://localhost:3001
 
 ## Deployment
 This repo is being managed by a dokku instance on `serv.ditto.money`
