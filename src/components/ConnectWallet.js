@@ -56,15 +56,15 @@ export default function () {
             <h3>Connect Wallet</h3>
             <div className={clsx('flex', 'flex-col')}>
               <div onClick={wallet.connectMetamask} className={clsx(classes.wallet)}>
-                <img src="wallets/metamask.svg" width="35" height="35" alt="metamask wallet" />
+                <img src="img/metamask.svg" width="35" height="35" alt="metamask wallet" />
                 <div>Metamask</div>
               </div>
               <div onClick={wallet.connectBsc} className={clsx(classes.wallet)}>
-                <img src="wallets/bsc.png" width="35" height="35" alt="bsc wallet" />
+                <img src="img/bsc.png" width="35" height="35" alt="bsc wallet" />
                 <div>Binance Wallet</div>
               </div>
               <div onClick={wallet.connectTrust} className={clsx(classes.wallet)}>
-                <img src="wallets/trust.svg" width="35" height="35" alt="trust wallet" />
+                <img src="img/trust.svg" width="35" height="35" alt="trust wallet" />
                 <div>Trust Wallet</div>
               </div>
             </div>
