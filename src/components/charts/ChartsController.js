@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import { makeStyles } from '@material-ui/core/styles'
 import { Box } from '@material-ui/core'
 import Paper from 'components/Paper'
-
 import { BORDER_RADIUS, TYPES_ARRAY, DURATIONS_ARRAY } from 'config'
 import { useStats } from 'contexts/stats'
 

@@ -9,6 +9,7 @@ import { SECONDARY_COLOR } from 'config'
 import { toFixed } from 'utils/big-number'
 import { useStats } from 'contexts/stats'
 
+// required function for the yAxisLabelFormatter
 const noop = (x) => x
 
 const useStyles = makeStyles((theme) => ({
@@ -36,7 +37,7 @@ export default ({ data, title, yAxisLabelFormatter = noop }) => {
   const { activeType } = useStats()
 
   const yAxisTickFormatter = (val) => {
-    return Infinity === Math.abs(val) ? '-' : activeType === '%' ? toFixed(val, 1, 2) + '%' : yAxisLabelFormatter(toFixed(val, 1, 2))
+    return !Number.isFinite(Math.abs(val)) ? '-' : activeType === '%' ? toFixed(val, 1, 2) + '%' : yAxisLabelFormatter(toFixed(val, 1, 2))
   }
 
   return (
